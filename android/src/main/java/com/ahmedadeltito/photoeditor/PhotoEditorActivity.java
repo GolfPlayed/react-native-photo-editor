@@ -381,7 +381,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
 
                 public void onFinish() {
                     String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                    String imageName = "IMG_" + timeStamp + ".jpg";
+                    String imageName = "/IMG_" + timeStamp + ".jpg";
 
                     if (isSDCARDMounted()) {
                         String folderName = "PhotoEditorSDK";
@@ -435,8 +435,8 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 String imageName = "IMG_" + timeStamp + ".jpg";
 
-                String selectedImagePath = getIntent().getExtras().getString("selectedImagePath");
-                File file = new File(selectedImagePath);
+                 String newPath = getCacheDir() + imageName;
+                 File file = new File(newPath);
 
                 try {
                     FileOutputStream out = new FileOutputStream(file);
@@ -452,6 +452,7 @@ public class PhotoEditorActivity extends AppCompatActivity implements View.OnCli
                 }
 
                 Intent returnIntent = new Intent();
+                returnIntent.putExtra("imagePath", newPath);
                 setResult(Activity.RESULT_OK, returnIntent);
 
                 finish();
